@@ -3,9 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
+require("./models/User");
 const mongoose_1 = __importDefault(require("mongoose"));
+const express_1 = __importDefault(require("express"));
+const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const requireAuth_1 = __importDefault(require("./middleware/requireAuth"));
 const app = express_1.default();
+app.use(body_parser_1.default.json());
+app.use(authRoutes_1.default);
 const mongoUri = 'mongodb+srv://piotrmorawski:1234@cluster0-mr6m6.gcp.mongodb.net/test?retryWrites=true&w=majority';
 mongoose_1.default.connect(mongoUri, {
     useNewUrlParser: true,
@@ -18,7 +24,7 @@ mongoose_1.default.connection.on('connected', () => {
 mongoose_1.default.connection.on('error', (err) => {
     console.log('error connecting to Mongo', err);
 });
-app.get('/', (req, res) => {
+app.get('/', requireAuth_1.default, (req, res) => {
     res.send('Hi there');
 });
 app.listen(3000, () => {
