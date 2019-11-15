@@ -25,7 +25,7 @@ mongoose_1.default.connection.on('error', (err) => {
     console.log('error connecting to Mongo', err);
 });
 app.get('/', requireAuth_1.default, (req, res) => {
-    res.send('Hi there');
+    res.send(`Your email ${req.user.email}`);
 });
 app.listen(3000, () => {
     console.log('listening');

@@ -25,8 +25,8 @@ exports.default = (req, res, next) => {
         if (error) {
             return res.status(401).send({ error: 'You must be logged in.' });
         }
-        const { userID } = payload;
-        const user = yield User.findById(userID);
+        const { userId } = payload;
+        const user = yield User.findById(userId);
         req.user = user;
         next();
     }));

@@ -3,11 +3,7 @@ import mongoose from 'mongoose'
 
 const User = mongoose.model('User')
 
-export default (
-  req: any,
-  res: any,
-  next: any
-) => {
+export default (req: any, res: any, next: any) => {
   const { authorization } = req.headers
 
   if (!authorization) {
@@ -19,10 +15,8 @@ export default (
     if (error) {
       return res.status(401).send({ error: 'You must be logged in.' })
     }
-
-    const { userID } = payload
-
-    const user = await User.findById(userID)
+    const { userId } = payload
+    const user = await User.findById(userId)
     req.user = user
     next()
   })
