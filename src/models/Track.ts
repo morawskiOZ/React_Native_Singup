@@ -9,11 +9,13 @@ const pointSchema = new mongoose.Schema({
     accuracy: Number,
     heading: Number,
     speed: Number,
+    altitudeAccuracy: Number
   },
+  mocked: Boolean
 })
 
 const trackSchema = new mongoose.Schema({
-  userID: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true

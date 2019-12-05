@@ -16,21 +16,17 @@ router.get('/tracks', async (req: any, res: any) => {
 
 router.post('/tracks', async (req: any, res: any) => {
   const id = req.user._id
-  const {name, location} = req.body
-  if (!name || !location) {
-    return res
-      .status(422)
-      .send({error: "You must provide name and location"})
+  const { name, locations } = req.body
+  if (!name || !locations) {
+    return res.status(422).send({ error: 'You must provide name and location' })
   }
   try {
-  const track = new Track({name, location, userId: id})
+    const track = new Track({ name, locations, userId: id })
     await track.save()
     res.send(track)
   } catch (err) {
-    res.status(422).send({error: err.message })
+    res.status(422).send({ error: err.message })
   }
-
 })
-
 
 export default router
