@@ -13,21 +13,20 @@ app.use(bodyParser.json())
 app.use(authRoutes)
 app.use(trackRoutes)
 
-
 const mongoUri =
   'mongodb+srv://piotrmorawski:1234@cluster0-mr6m6.gcp.mongodb.net/test?retryWrites=true&w=majority'
 
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useCreateIndex: true,
-  useUnifiedTopology: true 
+  useUnifiedTopology: true
 })
 
 mongoose.connection.on('connected', () => {
   console.log('connected to Mongo')
 })
 
-mongoose.connection.on('error', (err) => {
+mongoose.connection.on('error', err => {
   console.log('error connecting to Mongo', err)
 })
 

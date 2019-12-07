@@ -24,7 +24,7 @@ mongoose_1.default.connect(mongoUri, {
 mongoose_1.default.connection.on('connected', () => {
     console.log('connected to Mongo');
 });
-mongoose_1.default.connection.on('error', (err) => {
+mongoose_1.default.connection.on('error', err => {
     console.log('error connecting to Mongo', err);
 });
 app.get('/', requireAuth_1.default, (req, res) => {
